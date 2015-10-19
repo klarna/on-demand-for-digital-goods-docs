@@ -8,8 +8,17 @@ While we've done our best to make these examples easy to dive into, you are enco
 **Note:** the backend samples in this document are written in Ruby. They will be kept simple and should be clear even without any prior knowledge in Ruby.
 
 ###Table of Contents
-<!-- Actually generate a TOC here at some point -->
-There was a TOC here. It's gone now.
+- [Embedding on-demand for digital goods](#embedding-on-demand-for-digital-goods)
+- [Receiving one-time payments](#receiving-one-time-payments)
+  - [Placing a payment form on your page](#placing-a-payment-form-on-your-page)
+  - [Interacting with the form on your backend](#interacting-with-the-form-on-your-backend)
+  - [Updating the frontend](#updating-the-frontend)
+- [Recurring payments](#recurring-payments)
+  - [Placing a registration form on your page](#placing-a-registration-form-on-your-page)
+  - [Interacting with the form on your backend](#interacting-with-the-form-on-your-backend-1)
+  - [Updating the frontend](#updating-the-frontend-1)
+  - [Using a recurring payment reference](#using-a-recurring-payment-reference)
+- [Custom form attributes](#custom_form_attributes)
 
 ##Embedding on-demand for digital goods
 While the specifics vary slightly depending on your use case, there are three main things you will need to do in order to embed the solution in your site:
