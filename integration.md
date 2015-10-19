@@ -34,7 +34,7 @@ While the specifics vary slightly depending on your use case, there are three ma
 
    ```html
    <form action="/some_action" method="POST" class="klarna-form" data-api-key="test_d4ca9ed6-489b-42b3-8011-dacdcee0fdb6" data-flow="registration" data-locale="sv">
-     <input type="hidden" name="article_id" value="4553" />
+      <input type="hidden" name="article_id" value="4553" />
 </form>
    ```
    
@@ -46,9 +46,9 @@ While the specifics vary slightly depending on your use case, there are three ma
 
    ```html
    <script>
-     onKlarnaSuccess = function(data) {
-       // Do all sorts of things
-     }
+      onKlarnaSuccess = function(data) {
+        // Do all sorts of things
+      }
    </script>
    ```
 
@@ -60,7 +60,7 @@ Assuming you've already included the SDK itself on your page, you now need to pl
 
 ```html
 <form action="/purchase" method="POST" class="klarna-form" data-api-key="test_d4ca9ed6-489b-42b3-8011-dacdcee0fdb6" data-flow="purchase" data-amount="99" data-currency="SEK" data-locale="sv">
-    <input type="hidden" name="article_id" value="1">
+  <input type="hidden" name="article_id" value="1">
 </form>
 ```
 
