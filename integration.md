@@ -220,3 +220,4 @@ data-flow | The type of on-demand form to display. The supported values are `pur
 data-locale | The locale in which the form should be presented.
 data-amount | This attribute is valid only for purchase forms and denotes the purchase's total price.
 data-currency | This attribute is valid only for purchase forms and denotes the purchase's currency, as an [ISO 4217 code](https://en.wikipedia.org/wiki/ISO_4217).
+data-order-reference | This attribute is valid only for successful purchase forms and denotes the purchase's order reference (useful when the form is re-rendered after a successful purchase). This will allow the user to do a post-purchase payment method change.
