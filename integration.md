@@ -104,7 +104,7 @@ end
 Let us go over the above code and see what it does.
 First, a new purchase is created using the information posted with the form. Should you care to delve into the specifics of the `Klarna::Purchase` object you are welcome to [look at the source code](https://github.com/klarna/sample-digital-goods-backend/blob/master/models/klarna/purchase.rb), but simply put it is a wrapper object for [Klarna's on Demand API](http://docs.inapp.apiary.io/). Specifically, for the creation of [orders](http://docs.inapp.apiary.io/#orders).
 
-Once created, we attempt to authorize the purchase. If everything goes smoothly, we will then respond with the article's paid contents. Otherwise, we will return an indicative error.
+Once created, we attempt to authorize the purchase. If everything goes smoothly, we will then respond with the article's paid contents and purchase info. Otherwise, we will return an indicative error.
 
 There are a few things worth noticing in the example above:
 
@@ -220,4 +220,3 @@ data-flow | The type of on-demand form to display. The supported values are `pur
 data-locale | The locale in which the form should be presented.
 data-amount | This attribute is valid only for purchase forms and denotes the purchase's total price.
 data-currency | This attribute is valid only for purchase forms and denotes the purchase's currency, as an [ISO 4217 code](https://en.wikipedia.org/wiki/ISO_4217).
-data-order-reference | This attribute is valid only for successful purchase forms and denotes the purchase's order reference (useful when the form is re-rendered after a successful purchase). This will allow the user to do a post-purchase payment method change.
