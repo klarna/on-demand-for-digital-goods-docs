@@ -93,7 +93,7 @@ post '/purchase' do
   authorization_response = purchase.authorize!
   if authorization_response.success?
     article = Article.find(params[:article_id])
-    return json data: article.paid_content
+    return json data: article.paid_content, klarna_response: authorization_response.data
   else
     status 500
     return json klarna_response: authorization_response.data
