@@ -14,7 +14,7 @@ Consider the following diagram which depicts the flow of a typical one-time paym
 
 This diagram makes little sense were we not to go over each of the numbered interactions:
 
-1. A user browses your site, where you've already integrated Klarna on-demand for digital goods (to see how this is accomplished, refer to the [integration guide](integration.md)). Seeing how your site offers something the user desires, he opts to buy it by filling our the form presented by the on-demand SDK, which clearly states the cost of the purchase.
+1. A user browses your site, where you've already integrated Klarna on-demand for digital goods (to see how this is accomplished, refer to the [integration guide](integration.md)). Seeing how your site offers something the user desires, he opts to buy it by filling the form presented by the on-demand SDK, which clearly states the cost of the purchase.
 
   First time users will be asked to:
   1. Enter their phone number
