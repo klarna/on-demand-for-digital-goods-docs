@@ -28,16 +28,16 @@ While the specifics vary slightly depending on your use case, there are three ma
    For the playground version, use:
    
    ```html
-   <script src="https://ondemand-dg.playground.klarna.com/web/js/sdk.min.js"></script>
+   <script async src="https://ondemand-dg.playground.klarna.com/web/js/sdk.min.js"></script>
    ```
    
    For production, use:
    
    ```html
-   <script src="https://ondemand.klarna.com/web/js/sdk.min.js"></script>
+   <script async src="https://ondemand.klarna.com/web/js/sdk.min.js"></script>
    ```
    
-   **Note:** You are encouraged to defer the SDK's execution, by adding the `async` attribute to the tag, or any other similar measure.
+   **Note:** We deferred the SDK's execution by adding the `async` attribute to the tag. Use this or any other similar measure.
    
 2. Place a form on the page and mark it with the `klarna-form` class. While we don't want to dive into the specifics just yet, here is an example of such a form:
 
