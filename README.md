@@ -11,4 +11,4 @@ A solution can't really be good if you do not trust and understand it. Have a lo
 Have a look at the [integration guide](integration.md) for full details on how to use Klarna on-demand for digital goods in your site.
 
 ## Sample implementation
-If integration guides aren't your thing, or if you need to see how our offering works in practice, you can go have a look at our [sample site project](https://github.com/klarna/sample-digital-goods-backend).
+If integration guides aren't your thing, or if you need to see how our offering works in practice, you can go have a look at our [sample site project](https://github.com/klarna/sample-digital-goods-backend/tree/facelift).
