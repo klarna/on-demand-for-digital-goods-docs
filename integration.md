@@ -93,7 +93,7 @@ post '/purchase' do
   authorization_response = purchase.authorize!
   if authorization_response.success?
     article = Article.find(params[:article_id])
-    return json data: article.paid_content
+    return json data: article.paid_content, klarna_response: authorization_response.data
   else
     status 500
     return json klarna_response: authorization_response.data
@@ -104,7 +104,7 @@ end
 Let us go over the above code and see what it does.
 First, a new purchase is created using the information posted with the form. Should you care to delve into the specifics of the `Klarna::Purchase` object you are welcome to [look at the source code](https://github.com/klarna/sample-digital-goods-backend/blob/master/models/klarna/purchase.rb), but simply put it is a wrapper object for [Klarna's on Demand API](http://docs.inapp.apiary.io/). Specifically, for the creation of [orders](http://docs.inapp.apiary.io/#orders).
 
-Once created, we attempt to authorize the purchase. If everything goes smoothly, we will then respond with the article's paid contents. Otherwise, we will return an indicative error.
+Once created, we attempt to authorize the purchase. If everything goes smoothly, we will then respond with the article's paid contents and purchase info. Otherwise, we will return an indicative error.
 
 There are a few things worth noticing in the example above:
 
