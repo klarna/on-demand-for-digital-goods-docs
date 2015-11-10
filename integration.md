@@ -26,19 +26,19 @@ While the specifics vary slightly depending on your use case, there are three ma
 1. Use a script tag pointing to Klarna's SDK. There are two versions of the SDK, one that works with our playground environment and one that works with our production environment. Other than the environment they are geared towards, both are functionally equivalent.
 
    For the playground version, use:
-   
+
    ```html
    <script async src="https://ondemand-dg.playground.klarna.com/web/js/sdk.min.js"></script>
    ```
-   
+
    For production, use:
-   
+
    ```html
    <script async src="https://ondemand.klarna.com/web/js/sdk.min.js"></script>
    ```
-   
+
    **Note:** We deferred the SDK's execution by adding the `async` attribute to the tag. Use this or any other similar measure.
-   
+
 2. Place a form on the page and mark it with the `klarna-form` class. While we don't want to dive into the specifics just yet, here is an example of such a form:
 
    ```html
@@ -46,11 +46,11 @@ While the specifics vary slightly depending on your use case, there are three ma
       <input type="hidden" name="article_id" value="4553" />
 </form>
    ```
-   
+
    Once the SDK loads, it will seek out forms thusly marked and change their contents to present Klarna's on-demand for digital goods offering. We will see how to interact with such forms later on. Do note the custom attributes used above, the meaning of which you can find in [this table](#custom_form_attributes).
 
    The hidden input field will be submitted along with the form and is the preferred method for passing data to your backend when the user interacts with Klarna. We will see this in action later on.
-   
+
 3. <a name='define_callback'></a>In an additional script tag, define a callback to be invoked when the form is successfully submitted (no need for a failure callback, as the form will display errors on its own). As before, the exact nature of this callback depends on the use case, but here is an example of such a script tag:
 
    ```html
@@ -81,30 +81,32 @@ We've previously stated that the forms presented by Klarna are eventually posted
 ```ruby
 # Handle POST requests to '/purchase'
 post '/purchase' do
+  @user = User.create(session, params[:userToken], 'user@email.com') unless @user
   purchase = Klarna::Purchase.new(
-    user_token:    params[:userToken],
-    reference:     "IA-#{params[:article_id]}",
-    name:          'Interesting Article',
+    user_token:    @user.token,
+    reference:     'subscription',
+    name:          'Monthly subscription',
     amount:        99,
     tax:           6,
     origin_proof:  params[:origin_proof]
   )
 
-  authorization_response = purchase.authorize!
-  if authorization_response.success?
+  success, response_data, response_code = purchase.order!
+  if success
+    @user.subscribe!
     article = Article.find(params[:article_id])
-    return json data: article.paid_content, klarna_response: authorization_response.data
+    return json data: article.paid_content, klarna_response: response_data
   else
-    status 500
-    return json klarna_response: authorization_response.data
+    status response_code and return json data: {}, klarna_response: response_data
   end
 end
+
 ```
 
 Let us go over the above code and see what it does.
 First, a new purchase is created using the information posted with the form. Should you care to delve into the specifics of the `Klarna::Purchase` object you are welcome to [look at the source code](https://github.com/klarna/sample-digital-goods-backend/blob/master/models/klarna/purchase.rb), but simply put it is a wrapper object for [Klarna's on Demand API](http://docs.inapp.apiary.io/). Specifically, for the creation of [orders](http://docs.inapp.apiary.io/#orders).
 
-Once created, we attempt to authorize the purchase. If everything goes smoothly, we will then respond with the article's paid contents and purchase info. Otherwise, we will return an indicative error.
+Once created, we attempt to make an order for the purchase. If everything goes smoothly, we will then respond with the article's paid contents and purchase info. Otherwise, we will return an indicative error.
 
 There are a few things worth noticing in the example above:
 
@@ -200,9 +202,9 @@ every 1.day do
       origin_proof:  user.recurring_payment_reference
     )
 
-    authorization_response = purchase.authorize!
-    if authorization_response.succeed?
-      user.monthly_payments.create(Date.today, authorization_response)
+    success, response_data, response_code = purchase.order!
+    if success
+      user.monthly_payments.create(Date.today, response_data)
     else
       send_notification_email(user)
     end
