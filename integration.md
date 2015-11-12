@@ -26,19 +26,19 @@ While the specifics vary slightly depending on your use case, there are three ma
 1. Use a script tag pointing to Klarna's SDK. There are two versions of the SDK, one that works with our playground environment and one that works with our production environment. Other than the environment they are geared towards, both are functionally equivalent.
 
    For the playground version, use:
-   
+
    ```html
    <script async src="https://ondemand-dg.playground.klarna.com/web/js/sdk.min.js"></script>
    ```
-   
+
    For production, use:
-   
+
    ```html
    <script async src="https://ondemand.klarna.com/web/js/sdk.min.js"></script>
    ```
-   
+
    **Note:** We deferred the SDK's execution by adding the `async` attribute to the tag. Use this or any other similar measure.
-   
+
 2. Place a form on the page and mark it with the `klarna-form` class. While we don't want to dive into the specifics just yet, here is an example of such a form:
 
    ```html
@@ -46,11 +46,11 @@ While the specifics vary slightly depending on your use case, there are three ma
       <input type="hidden" name="article_id" value="4553" />
 </form>
    ```
-   
+
    Once the SDK loads, it will seek out forms thusly marked and change their contents to present Klarna's on-demand for digital goods offering. We will see how to interact with such forms later on. Do note the custom attributes used above, the meaning of which you can find in [this table](#custom_form_attributes).
 
    The hidden input field will be submitted along with the form and is the preferred method for passing data to your backend when the user interacts with Klarna. We will see this in action later on.
-   
+
 3. <a name='define_callback'></a>In an additional script tag, define a callback to be invoked when the form is successfully submitted (no need for a failure callback, as the form will display errors on its own). As before, the exact nature of this callback depends on the use case, but here is an example of such a script tag:
 
    ```html
@@ -68,7 +68,7 @@ Perhaps the nature of your site favors singular transactions over return busines
 Assuming you've already included the SDK itself on your page, you now need to place the actual payment form somewhere:
 
 ```html
-<form action="/purchase" method="POST" class="klarna-form" data-api-key="test_d4ca9ed6-489b-42b3-8011-dacdcee0fdb6" data-flow="purchase" data-amount="99" data-currency="SEK" data-locale="sv">
+<form action="/purchase" method="POST" class="klarna-form" data-api-key="test_d4ca9ed6-489b-42b3-8011-dacdcee0fdb6" data-flow="purchase" data-amount="9900" data-currency="SEK" data-locale="sv">
   <input type="hidden" name="article_id" value="1">
 </form>
 ```
@@ -85,8 +85,8 @@ post '/purchase' do
     user_token:    params[:userToken],
     reference:     "IA-#{params[:article_id]}",
     name:          'Interesting Article',
-    amount:        99,
-    tax:           6,
+    amount:        9900,
+    tax:           600,
     origin_proof:  params[:origin_proof]
   )
 
@@ -195,8 +195,8 @@ every 1.day do
       user_token:    params[:userToken],
       reference:     "MNT-SUB",
       name:          'Monthly subscription fee',
-      amount:        777,
-      tax:           6,
+      amount:        20000,
+      tax:           1200,
       origin_proof:  user.recurring_payment_reference
     )
 
@@ -218,5 +218,5 @@ Attribute | Description
 data-api-key | This is where you must supply your API key for the form to function properly.
 data-flow | The type of on-demand form to display. The supported values are `purchase` and `recurring-purchase`
 data-locale | The locale in which the form should be presented.
-data-amount | This attribute is valid only for purchase forms and denotes the purchase's total price.
+data-amount | This attribute is valid only for purchase forms and denotes the purchase's total price. The value should be multiplied by 100, so if your price is "9,90" it should be sent as "990".
 data-currency | This attribute is valid only for purchase forms and denotes the purchase's currency, as an [ISO 4217 code](https://en.wikipedia.org/wiki/ISO_4217).
