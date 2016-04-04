@@ -42,7 +42,7 @@ While the specifics vary slightly depending on your use case, there are three ma
 2. Place a form on the page and mark it with the `klarna-form` class. While we don't want to dive into the specifics just yet, here is an example of such a form:
 
    ```html
-   <form action="/some_action" method="POST" class="klarna-form" data-api-key="test_d4ca9ed6-489b-42b3-8011-dacdcee0fdb6" data-flow="registration" data-locale="sv" data-merchant-context="daily pass" data-merchant-context="daily pass">
+   <form action="/some_action" method="POST" class="klarna-form" data-api-key="test_d4ca9ed6-489b-42b3-8011-dacdcee0fdb6" data-flow="registration" data-locale="sv" data-merchant-context="daily pass">
       <input type="hidden" name="article_id" value="4553" />
 </form>
    ```
