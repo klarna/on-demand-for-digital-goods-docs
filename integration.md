@@ -135,7 +135,7 @@ Recurring payments offer more versatility in the way payments are collected from
 Assuming you've already included the SDK itself on your page, you now need to place the recurring payments form somewhere. This form will allow users to register for recurring payments:
 
 ```html
-<form action="/subscription" method="POST" class="klarna-form" data-api-key="test_d4ca9ed6-489b-42b3-8011-dacdcee0fdb6" data-flow="recurring-purchase" data-locale="sv" data-merchant-context="daily pass">
+<form action="/subscription" method="POST" class="klarna-form" data-api-key="test_d4ca9ed6-489b-42b3-8011-dacdcee0fdb6" data-flow="recurring-purchase" data-locale="sv" data-merchant-context="monthly subscription">
   <input type="hidden" name="article_id" value="1">
 </form>
 ```
@@ -220,4 +220,4 @@ data-flow | The type of on-demand form to display. The supported values are `pur
 data-locale | The locale in which the form should be presented.
 data-amount | This attribute is valid only for purchase forms and denotes the purchase's total price. The value should be multiplied by 100, so if your price is "9,90" it should be sent as "990".
 data-currency | This attribute is valid only for purchase forms and denotes the purchase's currency, as an [ISO 4217 code](https://en.wikipedia.org/wiki/ISO_4217).
-data-merchant-context | This attribute is used to track conversion rate in Google Analytics based on any given attribute, i.e. "daily pass".
+data-merchant-context | This attribute is optional. We recommend sending information about the product. Klarna will use this to segment your traffic and will be able to offer ideas that may help your conversion as a merchant. A practical example is to divide the traffic between "daily pass" and "weekly pass".
