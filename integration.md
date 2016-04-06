@@ -42,7 +42,7 @@ While the specifics vary slightly depending on your use case, there are three ma
 2. Place a form on the page and mark it with the `klarna-form` class. While we don't want to dive into the specifics just yet, here is an example of such a form:
 
    ```html
-   <form action="/some_action" method="POST" class="klarna-form" data-api-key="test_d4ca9ed6-489b-42b3-8011-dacdcee0fdb6" data-flow="purchase" data-locale="sv" data-merchant-context="daily pass">
+   <form action="/some_action" method="POST" class="klarna-form" data-api-key="test_d4ca9ed6-489b-42b3-8011-dacdcee0fdb6" data-flow="purchase" data-locale="sv" data-merchant-context="premium subscription">
       <input type="hidden" name="article_id" value="4553" />
 </form>
    ```
@@ -68,7 +68,7 @@ Perhaps the nature of your site favors singular transactions over return busines
 Assuming you've already included the SDK itself on your page, you now need to place the actual payment form somewhere:
 
 ```html
-<form action="/purchase" method="POST" class="klarna-form" data-api-key="test_d4ca9ed6-489b-42b3-8011-dacdcee0fdb6" data-flow="purchase" data-amount="9900" data-currency="SEK" data-locale="sv" data-merchant-context="daily pass">
+<form action="/purchase" method="POST" class="klarna-form" data-api-key="test_d4ca9ed6-489b-42b3-8011-dacdcee0fdb6" data-flow="purchase" data-amount="9900" data-currency="SEK" data-locale="sv" data-merchant-context="premium subscription">
   <input type="hidden" name="article_id" value="1">
 </form>
 ```
@@ -135,7 +135,7 @@ Recurring payments offer more versatility in the way payments are collected from
 Assuming you've already included the SDK itself on your page, you now need to place the recurring payments form somewhere. This form will allow users to register for recurring payments:
 
 ```html
-<form action="/subscription" method="POST" class="klarna-form" data-api-key="test_d4ca9ed6-489b-42b3-8011-dacdcee0fdb6" data-flow="recurring-purchase" data-locale="sv" data-merchant-context="monthly subscription">
+<form action="/subscription" method="POST" class="klarna-form" data-api-key="test_d4ca9ed6-489b-42b3-8011-dacdcee0fdb6" data-flow="recurring-purchase" data-locale="sv" data-merchant-context="premium subscription">
   <input type="hidden" name="article_id" value="1">
 </form>
 ```
@@ -220,4 +220,4 @@ data-flow | The type of on-demand form to display. The supported values are `pur
 data-locale | The locale in which the form should be presented.
 data-amount | This attribute is valid only for purchase forms and denotes the purchase's total price. The value should be multiplied by 100, so if your price is "9,90" it should be sent as "990".
 data-currency | This attribute is valid only for purchase forms and denotes the purchase's currency, as an [ISO 4217 code](https://en.wikipedia.org/wiki/ISO_4217).
-data-merchant-context | This attribute is optional. We recommend sending information about the product. Klarna will use this to segment your traffic and will be able to offer ideas that may help your conversion as a merchant. A practical example is to divide the traffic between "daily pass" and "weekly pass".
+data-merchant-context | This attribute is optional. We recommend sending information about the product. Klarna will use this to segment your traffic and will be able to offer ideas that may help your conversion as a merchant. A practical example is to send data about whether you're selling a "basic subscription" or "premium subscription", or if your trying "promotion banner 1" against "promotion banner 2".
