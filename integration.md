@@ -18,6 +18,9 @@ While we've done our best to make these examples easy to dive into, you are enco
   - [Interacting with the form on your backend](#interacting-with-the-form-on-your-backend-1)
   - [Updating the frontend](#updating-the-frontend-1)
   - [Using a recurring payment reference](#using-a-recurring-payment-reference)
+- [Prefereneces](#preferences)
+  - [Acquiring a preferences session id](#acquiring-a-preferences-session-id)
+  - [Placing a preferecnes form on your page](#placing-a-registration-form-on-your-page)
 - [Custom form attributes](#custom_form_attributes)
 
 ##Embedding on-demand for digital goods
@@ -210,6 +213,42 @@ every 1.day do
 end
 ```
 
+## Preferences
+After is user is registered with Klarna, you might want to allow them to view and possibly change their current payment preferences.
+Since the preferences form displays sensitive data about the user without prior authenticion, rendering the flow is a 2-step process: a preferences session is first securly created, and then the preferenecs data is displayed against the session identifier.
+
+### Acquiring a preferences session id
+Once a user has chosen to view their prefernces (by clicking a designated button, or in any other form you see fit), your backend server should acquire a preferences session identifier. This is done by calling the following method:
+
+    URL:
+      production: https://ondemand.klarna.com/web
+      playground: https://ondemand-dg.playground.klarna.com/web
+    Action: preferneces
+    Method: POST
+    Params:
+      api_key: your api key. Required
+      api_secret: your api secret. Required
+      user_token: the requesting user's token. Required
+    Success Response:
+      Code: 201
+      Content: { session_id: <session_id> }
+    Error Response:
+      Code: 402
+      Content: { error : "credentials_mismatch" }
+
+### Placing a preferences form on your page
+Assuming you've already included the SDK itself on your page, place the preferences form in the page. This form will allow the user to view and change their preferences:
+
+```html
+<form action="/" method="POST" class="klarna-form" data-api-key="test_d4ca9ed6-489b-42b3-8011-dacdcee0fdb6" data-flow="preferences" data-session-id="AAA42CA8-9765-4BAB-9135-865F6C565540">
+</form>
+```
+
+Mind that action is not set - since no action is required of the merchant backend once the preferences page is displayed. Also, data-flow is set to preferences and a the preferences session id is provided under the key data-session-id. [This table](#custom_form_attributes) covers data attributes' meaning.
+
+That is it. Unlike other flows, no further interaction with your backend server is required, nor should the page act upon any action.
+
+
 ## <a name="custom_form_attributes"></a>Custom form attributes
 In this section we will present and clarify the various custom attributes you may use to configure the Klarna on-demand for digital goods forms you embed in your site.
 
@@ -221,3 +260,4 @@ data-locale | The locale in which the form should be presented.
 data-amount | This attribute is valid only for purchase forms and denotes the purchase's total price. The value should be multiplied by 100, so if your price is "9,90" it should be sent as "990".
 data-currency | This attribute is valid only for purchase forms and denotes the purchase's currency, as an [ISO 4217 code](https://en.wikipedia.org/wiki/ISO_4217).
 data-merchant-context | This attribute is optional. We recommend sending information about the product. Klarna will use this to segment your traffic and will be able to offer ideas that may help your conversion as a merchant. A practical example is to send data about whether you're selling a "basic subscription" or "premium subscription", or if your trying "promotion banner 1" against "promotion banner 2".
+data-session-id | This attribute is valid only for preferences form and denotes a preferences session identifier (used as means for displaying the preferences securly)
