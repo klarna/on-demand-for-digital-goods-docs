@@ -18,7 +18,7 @@ While we've done our best to make these examples easy to dive into, you are enco
   - [Interacting with the form on your backend](#interacting-with-the-form-on-your-backend-1)
   - [Updating the frontend](#updating-the-frontend-1)
   - [Using a recurring payment reference](#using-a-recurring-payment-reference)
-- [Preferences](#preferences)
+- [COMING SOON - Preferences](#coming-soon-preferences)
   - [Acquiring a preferences session id](#acquiring-a-preferences-session-id)
   - [Placing a preferences form on your page](#placing-a-preferences-form-on-your-page)
 - [Custom form attributes](#custom_form_attributes)
@@ -213,7 +213,7 @@ every 1.day do
 end
 ```
 
-## Preferences
+## COMING SOON - Preferences
 After a user is registered with Klarna, you might want to allow them to view and possibly change their payment method.
 Since the preferences form displays sensitive data about the user without prior authentication, rendering the flow is a 2-step process: a preferences session is first securely created, and then the preferences data is displayed against the session identifier. 
 
