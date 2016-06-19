@@ -18,7 +18,7 @@ While we've done our best to make these examples easy to dive into, you are enco
   - [Interacting with the form on your backend](#interacting-with-the-form-on-your-backend-1)
   - [Updating the frontend](#updating-the-frontend-1)
   - [Using a recurring payment reference](#using-a-recurring-payment-reference)
-- [COMING SOON - Preferences](#preferences)
+- [Preferences](#preferences)
   - [Acquiring a preferences session id](#acquiring-a-preferences-session-id)
   - [Placing a preferences form on your page](#placing-a-preferences-form-on-your-page)
 - [Custom form attributes](#custom_form_attributes)
@@ -213,7 +213,7 @@ every 1.day do
 end
 ```
 <a name=preferences></a>
-## COMING SOON - Preferences
+## Preferences
 After a user is registered with Klarna, you might want to allow them to view and possibly change their payment method.
 Since the preferences form displays sensitive data about the user without prior authentication, rendering the flow is a 2-step process: a preferences session is first securely created, and then the preferences data is displayed against the session identifier. 
 
@@ -228,25 +228,26 @@ Once a user has chosen to view their prefernces (by clicking a designated button
     Action: preferneces
     Method: POST
     Headers:
+      Content-Type: application/json
       Authorization: Base64-encoding of the string api_key:api_secret, using your own provided api_key and api_secret.
-    Params:
-      user_token: the requesting user's token. Required
-    Success Response:
+    Body:
+      { "user_token": <user_token> } - the requesting user's token. Required.
+    Successful Response:
       Code: 201
-      Content: { session_id: <session_id> }
-    Error Response:
+      Content: { "session_id": <session_id> }
+    Failed Response:
       Code: 401 UNAUTHORIZED
 
-Note: the authentication header string should be encoded using the RFC2045-MIME variant of Base64, except not limited to 76 char/line. See more about basic authentication [here](https://en.wikipedia.org/wiki/Basic_access_authentication#Client_side).
-
-Note: the session will expire after 2 minutes.
+Note: 
+- The authentication header string should be encoded using the RFC2045-MIME variant of Base64, except not limited to 76 char/line. See more about basic authentication [here](https://en.wikipedia.org/wiki/Basic_access_authentication#Client_side).
+- The session will expire after 5 minutes.
 
 ### Placing a preferences form on your page
 Place Klarna SDK in your page as described [here](#embedding-on-demand-for-digital-goods).
-Place the following Klarna form in your page. This form will open a Klarna frame that will allow the user to view and change their preferences:
+Place the following Klarna form in your page. This form will open a Klarna frame that will allow the user to view (and change - coming soon) their preferences:
 
 ```html
-<form action="" method="POST" class="klarna-form" data-api-key="test_d4ca9ed6-489b-42b3-8011-dacdcee0fdb6" data-flow="preferences" data-session-id="AAA42CA8-9765-4BAB-9135-865F6C565540">
+<form class="klarna-form" data-api-key="test_d4ca9ed6-489b-42b3-8011-dacdcee0fdb6" data-flow="preferences" data-session-id="aaa42ca8-9765-4bab-9135-865f6c565540">
 </form>
 ```
 
