@@ -223,9 +223,8 @@ Since the preferences form displays sensitive data about the user without prior 
 Once a user has chosen to view their prefernces (by clicking a designated button, or in any other form you see fit), your backend server should acquire a preferences session identifier. This is done by calling the following method:
 
     URL:
-      production: https://ondemand.klarna.com/web
-      playground: https://ondemand-dg.playground.klarna.com/web
-    Action: preferneces
+      production: https://ondemand.klarna.com/api/preferences/sessions
+      playground: https://ondemand-dg.playground.klarna.com/api/preferences/sessions
     Method: POST
     Headers:
       Content-Type: application/json
