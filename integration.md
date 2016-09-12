@@ -93,13 +93,13 @@ post '/purchase' do
     origin_proof:  params[:origin_proof]
   )
 
-  authorization_response = purchase.authorize!
-  if authorization_response.success?
+  success, response_data, response_code = purchase.order!
+  if success
     article = Article.find(params[:article_id])
-    return json data: article.paid_content, klarna_response: authorization_response.data
+    return json data: article.paid_content, klarna_response: response_data
   else
-    status 500
-    return json klarna_response: authorization_response.data
+    status response_code
+    return json klarna_response: response_data
   end
 end
 ```
